@@ -1,3 +1,4 @@
+import base64
 from Model.Enum.ActionEnum import ActionEnum
 from Model.Enum.FileTypeEnum import FileTypeEnum
 from Model.Helper.FileHelper import FileHelper
@@ -56,7 +57,6 @@ class MainController:
         if not key:
             messagebox.showerror("Error", "Key is empty")
             return
-        
         file_path = FileHelper.save_file(FileTypeEnum.TXT)
         try:
             with open(file_path, "w") as file:

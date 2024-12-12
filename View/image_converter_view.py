@@ -69,7 +69,7 @@ class ImageConverterView(tk.Tk):
         success_window.protocol("WM_DELETE_WINDOW", on_close)
         
         tk.Label(success_window, text="Decrypt key generated", font=("Arial", 12)).pack(pady=20)
-        tk.Button(success_window, text="Download key", command=lambda:self.controller.download_key_txt(key.decode(),success_window)).pack(pady=10)
+        tk.Button(success_window, text="Download key", command=lambda:self.controller.download_key_txt(key,success_window)).pack(pady=10)
         
     def insert_decrypt_token_window(self):
         decrypt_token_window = tk.Toplevel()
