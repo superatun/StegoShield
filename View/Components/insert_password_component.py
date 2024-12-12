@@ -1,15 +1,18 @@
 import tkinter as tk
 
 class InserPasswordComponent(tk.Frame):
-    def __init__(self, parent, controller, *arg, **kwargs):
+    def __init__(self, parent, controller, bg_color, font_color,*arg, **kwargs):
         super().__init__(parent, *arg, **kwargs)
         self.controller = controller
         self.password_visible = False
+        self.bg_color = bg_color
+        self.font_color = font_color
         self._initialize_component()
         
     def _initialize_component(self):
+        self.configure(bg=self.bg_color)
         tk.Label(
-            self, text="Password:", bg="#1e1e1e", fg="#00ff00", font=("Arial", 12)
+            self, text="Password:", fg=self.font_color, background=self.bg_color,font=("Arial", 12)
         ).grid(row=0, column=0, sticky=tk.W, padx=10, pady=5)
 
         self.password_var = tk.StringVar()
@@ -18,7 +21,6 @@ class InserPasswordComponent(tk.Frame):
             textvariable=self.password_var,
             show="*",
             font=("Arial", 12),
-            bg="#1e1e1e",
             fg="#00ff00",
             insertbackground="#00ff00",
             highlightthickness=2,
@@ -30,22 +32,25 @@ class InserPasswordComponent(tk.Frame):
             self,
             text="👁️",
             command=self.toggle_password_visibility,
-            bg="#1e1e1e",
+            bg=self.bg_color,
             fg="#00ff00",
             font=("Arial", 10),
             borderwidth=0,
-            activebackground="#1e1e1e",
+            activebackground=self.bg_color,
         )
         self.toggle_btn.grid(row=0, column=2, sticky=tk.W, padx=5)
         
         tk.Button(
             self,
             text="Encrypt",
-            command=lambda: self.controller.encrypt_image_with_pwd(self.password_entry.get()),
-            bg="#1e1e1e",
+            command=lambda: [
+                self.controller.encrypt_image_with_pwd(self.password_entry.get()),
+                self.password_entry.delete(0, tk.END)
+            ],
+            bg=self.bg_color,
             fg="#00ff00",
             font=("Arial", 12),
-            activebackground="#00ff00",
+            activebackground=self.bg_color,
             activeforeground="#1e1e1e",
             borderwidth=2,
             highlightbackground="#00ff00",
