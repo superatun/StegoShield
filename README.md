@@ -75,6 +75,7 @@ The encryption process is handled by the `encrypt_image` method, which works as 
 ## Important Notes
 - The decryption process requires both the encrypted image and the token.
 - The `start.ps1` script is specifically designed for Windows environments.
+- Bump2Version is being used for vesioning. Please read CHANGELOG.md
 
 ## Dependencies
 The project uses the following libraries:

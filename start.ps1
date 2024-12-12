@@ -48,6 +48,6 @@ if (Test-Path $mainScript) {
     exit 1
 }
 
-Write-Host "deactivating env..."
-deactivate
-Write-Host "process successfully done." -ForegroundColor Green
+# Write-Host "deactivating env..."
+# deactivate
+# Write-Host "process successfully done." -ForegroundColor Green

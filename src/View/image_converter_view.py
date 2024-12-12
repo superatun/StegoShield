@@ -6,12 +6,14 @@ from src.View.Components.decrypt_image_component import DecryptImageComponent
 from src.View.Components.insert_password_component import InserPasswordComponent
 from src.View.Components.upload_image_component import UploadImageComponent
 from src.View.Helper.ClipboardHelper import ClipboardHelper
+from src.View.Helper.Versioning import Versioning
 
 class ImageConverterView(tk.Tk):
     def __init__(self,controller):
         super().__init__()
         self.controller = controller
-        self.title("StegoShield")
+        self.version = Versioning.get_version()
+        self.title(f"StegoShield v{self.version}")
         self.geometry("700x200")
         self.resizable(False,False)
         self.file_name = tk.StringVar(value=f"No file selected")
