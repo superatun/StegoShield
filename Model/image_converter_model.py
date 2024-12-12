@@ -16,23 +16,15 @@ from pathlib import Path
 import zlib
 import re
 
+from Model.Enum.FileTypeEnum import FileTypeEnum
+from Model.Helper.FileHelper import FileHelper
+
 class ImageConverterModel:
     def __init__(self):
         self.file_path = None
         self.temp_file = None
         self.sufix=None
         
-    def derive_key(self, password, salt):
-        """Deriva una clave usando PBKDF2 y SHA-256."""
-        kdf = PBKDF2HMAC(
-            algorithm=hashes.SHA256(),
-            length=32,
-            salt=salt,
-            iterations=100000,
-            backend=default_backend(),
-        )
-        return kdf.derive(password.encode())
-
     def encrypt_image(self, password):
         try:
             salt = os.urandom(16)
@@ -46,27 +38,28 @@ class ImageConverterModel:
             combined_data = salt + iv + encrypted_pwd
             token = base64.b64encode(hashlib.sha256(combined_data).digest()).decode('utf-8')
             message_base64 = base64.b64encode(combined_data).decode('utf-8')
-            output_path = Path.home() / "Downloads" / f"{Path(self.temp_file).stem}_encoded{self.suffix}"
-
+            output_path = FileHelper.save_file(FileTypeEnum.IMG, f"{Path(self.temp_file).stem}_encoded{self.suffix}")
+            if not output_path:
+                raise RuntimeError("Operation cancelled by the user.")
+            
             if not Path(self.temp_file).is_file():
-                raise FileNotFoundError(f"La imagen '{self.temp_file}' no existe.")
+                raise FileNotFoundError(f"Image '{self.temp_file}' does not exist.")
             lsb.hide(self.temp_file, message_base64).save(output_path)
 
             return token
 
-        except Exception as e:
-            print(f"Error durante la encriptación: {e}")
-            return None
+        except:
+            raise RuntimeError("Error encrypting image")
 
     def decrypt_image(self, image_path, token):
         try:
             message = lsb.reveal(image_path)
             if message is None:
-                raise ValueError("No se pudo extraer ningún mensaje de la imagen.")
+                raise ValueError("Image did not contained any message")
             combined_data = base64.b64decode(message)
             computed_token = base64.b64encode(hashlib.sha256(combined_data).digest()).decode('utf-8')
             if computed_token != token:
-                raise ValueError("El token adicional no coincide. No se puede desencriptar.")
+                raise ValueError("Invalid token")
             salt = combined_data[:16]
             iv = combined_data[16:32]
             encrypted_pwd = combined_data[32:]
@@ -78,9 +71,8 @@ class ImageConverterModel:
             original_password = unpadder.update(padded_password) + unpadder.finalize()
             return original_password.decode()
 
-        except Exception as e:
-            print(f"Error durante la desencriptación: {e}")
-            return None
+        except:
+            raise RuntimeError("Error encrypting image")
             
     def process_file(self, field_path, action):
         if action == ActionEnum.SAVE:
