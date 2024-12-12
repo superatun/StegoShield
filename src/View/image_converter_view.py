@@ -11,7 +11,7 @@ class ImageConverterView(tk.Tk):
     def __init__(self,controller):
         super().__init__()
         self.controller = controller
-        self.title("Image Password Generator")
+        self.title("StegoShield")
         self.geometry("700x200")
         self.resizable(False,False)
         self.file_name = tk.StringVar(value=f"No file selected")
