@@ -20,7 +20,7 @@ class DecryptImageComponent(tk.Frame):
         frame.rowconfigure(0, weight=1)
         frame.columnconfigure(0, weight=1)
 
-        imagen = Image.open("View\\resources\\unlock_icon.png")
+        imagen = Image.open("src\\View\\resources\\unlock_icon.png")
         imagen = imagen.resize((100, 100), Image.LANCZOS)
         self.imagen_tk = ImageTk.PhotoImage(imagen)
 

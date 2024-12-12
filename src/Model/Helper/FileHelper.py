@@ -1,6 +1,6 @@
 from tkinter import filedialog, messagebox
 
-from Model.Enum.FileTypeEnum import FileTypeEnum
+from src.Model.Enum.FileTypeEnum import FileTypeEnum
 
 class FileHelper():
     

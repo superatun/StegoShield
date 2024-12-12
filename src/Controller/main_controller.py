@@ -1,9 +1,8 @@
-import base64
-from Model.Enum.ActionEnum import ActionEnum
-from Model.Enum.FileTypeEnum import FileTypeEnum
-from Model.Helper.FileHelper import FileHelper
-from Model.image_converter_model import ImageConverterModel
-from View.image_converter_view import ImageConverterView
+from src.Model.Enum.ActionEnum import ActionEnum
+from src.Model.Enum.FileTypeEnum import FileTypeEnum
+from src.Model.Helper.FileHelper import FileHelper
+from src.Model.image_converter_model import ImageConverterModel
+from src.View.image_converter_view import ImageConverterView
 from tkinter import filedialog,messagebox
 
 class MainController:

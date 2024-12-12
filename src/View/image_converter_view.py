@@ -1,12 +1,11 @@
 import os
 import tkinter as tk
-from tkinter import Image, messagebox
-from tkinter import ttk
+from tkinter import messagebox
 
-from View.Components.decrypt_image_component import DecryptImageComponent
-from View.Components.insert_password_component import InserPasswordComponent
-from View.Components.upload_image_component import UploadImageComponent
-from View.Helper.ClipboardHelper import ClipboardHelper
+from src.View.Components.decrypt_image_component import DecryptImageComponent
+from src.View.Components.insert_password_component import InserPasswordComponent
+from src.View.Components.upload_image_component import UploadImageComponent
+from src.View.Helper.ClipboardHelper import ClipboardHelper
 
 class ImageConverterView(tk.Tk):
     def __init__(self,controller):
@@ -76,16 +75,26 @@ class ImageConverterView(tk.Tk):
         decrypt_token_window.title("Insert decrypt token")
         decrypt_token_window.geometry("300x150")
         decrypt_token_window.resizable(False, False)
-        
         decrypt_token = tk.StringVar()
-        
         decrypt_token_window.grab_set()
-        
+
+        self.window_closed_with_x = False
+
+        def on_close():
+            self.window_closed_with_x = True
+            decrypt_token_window.destroy()
+
+        decrypt_token_window.protocol("WM_DELETE_WINDOW", on_close)
+
         tk.Label(decrypt_token_window, text="Insert decrypt token", font=("Arial", 12)).pack(pady=20)
         tk.Entry(decrypt_token_window, textvariable=decrypt_token, width=40).pack(pady=10)
         tk.Button(decrypt_token_window, text="Decrypt", command=lambda: decrypt_token_window.destroy()).pack(pady=10)
-        
+
         decrypt_token_window.wait_window()
+
+        if self.window_closed_with_x:
+            return None
+
         return decrypt_token.get()
         
     def show_decrypted_pwd_window(self, pwd):
@@ -93,8 +102,12 @@ class ImageConverterView(tk.Tk):
         decrypted_pwd_window.title("Decrypted password")
         decrypted_pwd_window.geometry("300x150")
         decrypted_pwd_window.resizable(False, False)
-        
         decrypted_pwd_window.grab_set()
+        
+        def on_close():
+            decrypted_pwd_window.destroy()
+
+        decrypted_pwd_window.protocol("WM_DELETE_WINDOW", on_close)
         
         tk.Label(decrypted_pwd_window, text="Decrypted password", font=("Arial", 12)).pack(pady=20)
         tk.Label(decrypted_pwd_window, text=pwd, font=("Arial", 12)).pack(pady=10)

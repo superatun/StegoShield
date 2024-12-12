@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from Model.Enum.ActionEnum import ActionEnum
+from src.Model.Enum.ActionEnum import ActionEnum
 
 class UploadImageComponent(tk.Frame):
     def __init__(self, parent, controller, file_name_var, bg_color, font_color, *arg, **kwargs):
