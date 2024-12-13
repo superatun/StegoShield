@@ -20,9 +20,12 @@ class InserPasswordComponent(tk.Frame):
         
     def _initialize_component(self):
         self.configure(bg=self.bg_color)
+        self.grid_columnconfigure(0, weight=1)  # Columna 1 (1/6)
+        self.grid_columnconfigure(1, weight=4)  # Columna 2 (4/6)
+        self.grid_columnconfigure(2, weight=2)  # Columna 3 (2/6)
         tk.Label(
             self, text="Password:", fg=self.font_color, background=self.bg_color,font=(self.font_family, self.font_size)
-        ).grid(row=0, column=0, sticky=tk.W, padx=10, pady=5)
+        ).grid(row=0, column=0, sticky=tk.W, padx=(10, 5), pady=5) 
 
         self.password_var = tk.StringVar()
         self.password_entry = tk.Entry(
@@ -36,7 +39,7 @@ class InserPasswordComponent(tk.Frame):
             highlightbackground=self.pwd_box_bg,
             background=self.pwd_box_bg,
         )
-        self.password_entry.grid(row=0, column=1, sticky=tk.W, padx=10, pady=5)
+        self.password_entry.grid(row=0, column=1, sticky=tk.EW, padx=(5, 5), pady=5)
         
         self.eye_white_tk, self.eye_with_line_tk = ImageHelper.get_eye_icon("src/View/resources/eye_icon.png", 30, 30)
         self.toggle_btn = tk.Button(

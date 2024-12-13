@@ -37,6 +37,6 @@ class DecryptImageComponent(tk.Frame):
             relief="flat",
             background=self.bg_color,
             activebackground=self.bg_color,
-            command=lambda: self.get_encrypted_img()
+            command=lambda: self.controller.get_encrypted_img()
         )
         boton.grid(row=1, column=0, pady=(5, 10))

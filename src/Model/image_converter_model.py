@@ -67,7 +67,7 @@ class ImageConverterModel:
             return original_password.decode()
 
         except:
-            raise RuntimeError("Error encrypting image")
+            return None
             
     def process_file(self, field_path, action):
         if action == ActionEnum.SAVE:

@@ -1,3 +1,4 @@
+from ctypes import windll
 import os
 import tkinter as tk
 from tkinter import messagebox
@@ -16,6 +17,9 @@ class ImageConverterView(tk.Tk):
         self.title(f"StegoShield v{self.version}")
         self.geometry("700x200")
         self.resizable(False,False)
+        self.iconbitmap("src\\View\\resources\\Ico\\unlock_icon.ico")
+        windll.shell32.SetCurrentProcessExplicitAppUserModelID("StegoShieldApp")
+        self.iconbitmap("src\\View\\resources\\Ico\\unlock_icon.ico")
         self.file_name = tk.StringVar(value=f"No file selected")
         self.top_padding = 10
         self.side_padding = 35
@@ -30,13 +34,14 @@ class ImageConverterView(tk.Tk):
     
     def encrypt_window(self):
             
-        column_weights = [5, 1, 1, 1, 1, 2, 2]
+        column_weights = [1, 4, 2]
 
-        row_weights = [1, 2] 
+        row_weights = [1, 1]
 
-        for i in range(7):
+        for i in range(len(column_weights)):
             self.grid_columnconfigure(index=i, weight=column_weights[i])
-        for i in range(2):
+
+        for i in range(len(row_weights)):
             self.grid_rowconfigure(index=i, weight=row_weights[i])
 
         UploadImageComponent(
