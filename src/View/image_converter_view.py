@@ -19,8 +19,13 @@ class ImageConverterView(tk.Tk):
         self.file_name = tk.StringVar(value=f"No file selected")
         self.top_padding = 10
         self.side_padding = 35
-        self.bg_color = "#1C1C3C"
-        self.font_color = "#32CD32"
+        self.bg_color = "#2C3E50"
+        self.font_color = "#ECF0F1",
+        self.btn_bg = "#1ABC9C"
+        self.btn_fontcolor = "#FFFFFF"
+        self.pwd_box_bg = "#ECF0F1"
+        self.font_family = "Roboto"
+        self.font_size = 12
         self.configure(bg=self.bg_color)
     
     def encrypt_window(self):
@@ -39,20 +44,32 @@ class ImageConverterView(tk.Tk):
             controller=self.controller,
             file_name_var=self.file_name,
             bg_color=self.bg_color,
-            font_color=self.font_color
+            font_color=self.font_color,
+            bg_btn=self.btn_bg,
+            btn_fontcolor=self.btn_fontcolor,
+            font_family=self.font_family,
+            font_size=self.font_size
         ).grid(row=0, column=0, columnspan=5, sticky=tk.NSEW, pady=self.top_padding, padx=self.side_padding)
 
         InserPasswordComponent(
             parent=self,
             controller=self.controller,
             bg_color=self.bg_color,
-            font_color=self.font_color
+            font_color=self.font_color,
+            btn_bg=self.btn_bg,
+            btn_fontcolor=self.btn_fontcolor,
+            pwd_box_bg=self.pwd_box_bg,
+            font_family=self.font_family,
+            font_size=self.font_size
         ).grid(row=1, column=0, columnspan=5, sticky=tk.NSEW, pady=self.top_padding, padx=self.side_padding)
 
         DecryptImageComponent(
             parent=self, 
             controller=self.controller,
-            bg_color=self.bg_color
+            bg_color=self.bg_color,
+            font_color=self.font_color,
+            font_family=self.font_family,
+            font_size=self.font_size,
         ).grid(row=0, column=5, rowspan=2, sticky=tk.NSEW, pady=self.top_padding, padx=self.side_padding) 
 
     def show_success_window(self,key):
